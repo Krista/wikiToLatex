@@ -130,27 +130,37 @@ def removeDash(text):
 #TODO - referencie v texte treba prerobit na bibliograficke odkazy
 # a zaznamy v REF prerobit na latexove bibitem
 def convertRef(text):
-    bibtech = []
+    bibtech = "\\begin{thebibliography}{9}\n"
     s = re.findall("(\<ref\>.*?\<\/ref\>)", text, re.IGNORECASE)
-    for i in s: #spracovavam 1 referenciu
+    poc = 0
+    for i in s:
+        text = text.replace(i, "\cite{refer" + str(poc) + "}")  # len toto chceme mat v texte
+        #spracovavam 1 referenciu
         ref = re.sub("\<\/*ref\>", "", i) #odstranim <ref><\ref>
         lin = re.findall("(http.* )", i)
-        for j in lin:
-            ref.replace(j, "\\texttt{" + j + "}")
-        # if not ref.startswith("{{"):
-        #     rozloz = ref.split()
-        #     for j in rozloz:
-        #         if j.startswith("http"):
-        #             j = "\texttt{" + i + "}"
-        #     ref = ''.join(rozloz)
-        # else:
-        #     rozloz = ref[2:-2].split("|")
-        #     for x in range[1..len(rozloz)-1]:
-        #
-        #     if rozloz[0] == "Cite book":
+        lin = re.findall("(?P<url>http[s]?://[^\s]+)",ref)
+        #lin = re.sub("(\{\{)", "", lin)
+        #lin = re.sub("(\}\}.*)", "", lin)
+        bibtech += "\n\n\\bibitem{refer" + str(poc) + "}\n" #zaciatok bibitemu
 
+        poc += 1
+        for l in lin: #latexove formatovanie http
+            ref = ref.replace(l, "\\texttt{" + l + "}")
+
+        if not ref.startswith("{{"): #neformatujeme
+            bibtech += ref
+        else:
+            rozloz = ref[2:-2].split("|")
+            ref = ""
+            for z in rozloz[1:]: #tu sa skaredo snazim odkusnut prvu cast po =
+                r = z.split("=")
+                w = "=".join(r[1:])
+                if len(w) > 0:
+                    ref += w + ", "
+            bibtech += ref[:-2]
+    bibtech += "\n\n\\end{thebibliography}"
         #print(ref)
-        text = text.replace(i,"(TODO - referencia na literaturu)")
+        #text = text.replace(i,"(TODO - referencia na literaturu)")
     return bibtech, text
 
 # odrazkove zoznamy prerobi na latexovy format (vo wikitexte zacina *)
@@ -198,7 +208,7 @@ def removeSection(name, q):
 
 
 #html = ET.parse("nonogram.wiki")
-ignorlist = ['See also', 'External links', 'Example'] # mozeme dat aj ako argument
+ignorlist = ['See also', 'External links', 'References', 'Example'] # mozeme dat aj ako argument
 
 # # TODO nahrad
 f = open("output", 'r') # docasne.. aby sme nemuseli stale stahovat
@@ -228,6 +238,7 @@ i = convertItalic(i)
 i = convertItemize(i)
 i = convertEnumerate(i)
 
+i += b
 
 f = open("bakalar.tex", 'w')
 f.write(i)
