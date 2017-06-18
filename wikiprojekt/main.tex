@@ -1,0 +1,193 @@
+\documentclass[12pt, oneside]{book}
+\usepackage[a4paper,top=2.5cm,bottom=2.5cm,left=3.5cm,right=2cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{url}
+%\usepackage[slovak]{babel} % vypnite pre prace v anglictine
+\usepackage{verbatim}
+\usepackage{xr}
+\usepackage{logicpuzzle}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{xcolor, colortbl}
+\usepackage{multicol,multirow}
+\usetikzlibrary{tikzmark}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\usepackage{wrapfig}
+\usepackage{rotating}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  frame=single,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\footnotesize,\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  tabsize=1,
+  %extendedchars=false,
+  literate= {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ý}{{\'y}}1 {ô}{{\^o}}1
+   {š}{{\v s}}1 {ĺ}{{\' l}}1 {ž}{{\v z}}1 {ť}{{\v t}}1 {č}{{\v c}}1
+}
+
+\linespread{1.25} % hodnota 1.25 by mala zodpovedat 1.5 riadkovaniu
+
+\definecolor{Gray}{gray}{.8}
+\newcolumntype{?}{!{\vrule width 0.6mm}}%hruba ciara oddeluje stlpce 5x5
+\newcolumntype{a}{>{\cellcolor[gray]{.8}}p{1em}}
+\newcolumntype{b}{p{1em}} %stvorcek pre indicie
+\newcolumntype{d}{>{\centering\arraybackslash}p{.7cm}}
+\newcommand{\mc}{\multicolumn{1}{c}{}}
+\newcommand{\mf}[1]{\multicolumn{1}{l}{#1}}
+\newcommand{\mt}[1]{\multicolumn{2}{|l?}{#1}}
+\newcommand{\mr}[1]{\multicolumn{1}{d|}{\rotatebox[origin=c]{90}{#1}}}
+\newcommand{\w}{\cellcolor{white}}
+\newcommand{\bl}{\cellcolor{black}}
+\newcommand{\ok}{\ding{51}}% 
+\newcommand{\nok}{\ding{55}}%
+
+\usepackage{regexpatch}
+\makeatletter
+% Change the `-` delimiter to an active character
+\xpatchparametertext\@@@cmidrule{-}{\cA-}{}{}
+\xpatchparametertext\@cline{-}{\cA-}{}{}
+\makeatother
+
+% -------------------
+% --- Definicia zakladnych pojmov
+% --- Vyplnte podla vasho zadania
+% -------------------
+\def\mfrok{2017}
+\def\mfnazov{Automatické vytvarane bakalarok }
+\def\mftyp{Diplomová práca}
+\def\mfautor{Kristína Komanová}
+
+
+%ak mate konzultanta, odkomentujte aj jeho meno na titulnom liste
+%\def\mfkonzultant{tit. Meno Priezvisko, tit. }  
+
+\def\mfmiesto{Bratislava, \mfrok}
+
+%aj cislo odboru je povinne a je podla studijneho odboru autora prace
+\def\mfodbor{2508 Informatika} 
+\def\program{ Informatika }
+\def\mfpracovisko{ Katedra informatiky }
+
+\begin{document}     
+
+% -------------------
+% --- Obalka ------
+% -------------------
+\thispagestyle{empty}
+
+\begin{center}
+\sc\large
+Univerzita Komenského v Bratislave\\
+Fakulta matematiky, fyziky a informatiky
+
+\vfill
+
+{\LARGE\mfnazov}\\
+\mftyp
+\end{center}
+
+\vfill
+
+{\sc\large 
+\noindent \mfrok\\
+\mfautor
+}
+
+%\eject % EOP i
+% --- koniec obalky ----
+
+
+
+
+%\frontmatter
+
+% -------------------
+%   Poďakovanie - nepovinné
+% -------------------
+%\setcounter{page}{3}
+%\newpage 
+~
+
+%\vfill
+%{\bf Poďakovanie:}
+
+
+% --- Koniec poďakovania
+% -------------------
+
+%\paragraph*{Kľúčové slová:} 
+% --- Koniec Abstrakt - Slovensky
+%Nonogram is very popular logic puzzle. Although, the rules for solving are not very difficult, solving nonogram spent no much time sometimes, sometimes solving puzzle the same size during lots of hours. 
+
+
+
+% -------------------
+% --- Obsah
+% -------------------
+
+\newpage 
+
+\tableofcontents
+
+% ---  Koniec Obsahu
+
+% -------------------
+% --- Zoznamy tabuliek, obrázkov - nepovinne
+% -------------------
+
+\newpage 
+\listoffigures
+
+% ---  Koniec Zoznamov
+
+\mainmatter
+
+
+\input bakalar.tex 
+
+
+% -------------------
+% --- Bibliografia
+% -------------------
+
+
+\newpage	
+
+\backmatter
+
+\thispagestyle{empty}
+\nocite{*}
+\clearpage
+
+\%bibliographystyle{plain}
+%\bibliography{literatura.bib} 
+
+%\input AppendixA.tex
+%
+
+
+\end{document}
+
+
+
+
+
